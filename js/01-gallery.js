@@ -33,11 +33,14 @@ function onOpenImg(event) {
   );
   instance.show();
 
-  if (instance.visible()) {
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        instance.close();
-      }
-    });
+  if (basicLightbox.visible()) {
+    document.addEventListener("keydown", onCloseModal);
+  } else {
+    document.removeEventListener("keydown", onCloseModal);
+  }
+  function onCloseModal(event) {
+    if (event.key === "Escape") {
+      instance.close();
+    }
   }
 }
