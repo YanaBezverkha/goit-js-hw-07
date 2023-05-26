@@ -29,15 +29,13 @@ function onOpenImg(event) {
 
   const modalImg = event.target.dataset.source;
   const instance = basicLightbox.create(
-    `<img src="${modalImg}" width="800" height="600">`
+    `<img src="${modalImg}" width="800" height="600">`,
+    {
+      onShow: () => {document.addEventListener("keydown", onCloseModal)},
+      onClose: () => {document.removeEventListener("keydown", onCloseModal)}
+    }
   );
   instance.show();
-
-  if (basicLightbox.visible()) {
-    document.addEventListener("keydown", onCloseModal);
-  } else {
-    document.removeEventListener("keydown", onCloseModal);
-  }
   function onCloseModal(event) {
     if (event.key === "Escape") {
       instance.close();
